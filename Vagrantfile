@@ -7,11 +7,11 @@ Vagrant.configure("2") do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "precise32"
+  config.vm.box = "precise64"
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
-  config.vm.box_url = "http://files.vagrantup.com/precise32.box"
+  config.vm.box_url = "http://files.vagrantup.com/precise64.box"
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine.
@@ -26,7 +26,7 @@ Vagrant.configure("2") do |config|
   config.vm.network :private_network, ip: "33.33.33.10"
 
   # Set share folder permissions to 777 so that apache can write files
-  config.vm.synced_folder "C:/", "/vagrant", mount_options: ['dmode=777','fmode=666']
+  config.vm.synced_folder "C:/", "/var/www/", mount_options: ['dmode=777','fmode=666']
 
   # Provider-specific configuration so you can fine-tune VirtualBox for Vagrant.
   # These expose provider-specific options.
