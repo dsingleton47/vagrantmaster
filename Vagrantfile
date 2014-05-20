@@ -25,8 +25,11 @@ Vagrant.configure("2") do |config|
   # using a specific IP.
   config.vm.network :private_network, ip: "33.33.33.10"
 
+  # Give it a hostname to prevent FQDN errors from apache
+  config.vm.hostname = "magento.dev"
+
   # Set share folder permissions to 777 so that apache can write files
-  config.vm.synced_folder "C:/", "/var/www/", mount_options: ['dmode=777','fmode=666']
+  config.vm.synced_folder ".", "/var/www/", mount_options: ['dmode=777','fmode=666']
 
   # Provider-specific configuration so you can fine-tune VirtualBox for Vagrant.
   # These expose provider-specific options.
@@ -35,5 +38,10 @@ Vagrant.configure("2") do |config|
     vb.customize ["modifyvm", :id, "--memory", "4096"]
   end
 
-
+  # Create a basic manifest for our magento requirements this is super simple
+  # and I will probably end up spliting it into different manifests later
+  config.vm.provision :puppet do |puppet|
+    puppet.manifests_path = "manifests"
+    puppet.manifest_file = "magento.pp"
+  end
 end
