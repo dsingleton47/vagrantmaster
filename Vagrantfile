@@ -21,12 +21,15 @@ Vagrant.configure("2") do |config|
   # Forward http port on 8080, used for connecting web browsers to localhost:8080
   config.vm.network :forwarded_port, guest: 80, host: 8080
 
+  # forward for mailcatcher
+  config.vm.network :forwarded_port, guest: 1080, host: 1080
+
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   config.vm.network :private_network, ip: "33.33.33.10"
 
   # Give it a hostname to prevent FQDN errors from apache
-  config.vm.hostname = "magento.dev"
+  config.vm.hostname = "local.magento.dev"
 
   # Set share folder permissions to 777 so that apache can write files
   config.vm.synced_folder ".", "/var/www/", mount_options: ['dmode=777','fmode=666']
